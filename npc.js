@@ -1,8 +1,6 @@
 // ===== NPC FLIP =====
 // Achète au Bazaar, revend au PNJ pour profit garanti
 
-const ITEMS_API = 'https://api.hypixel.net/v2/resources/skyblock/items';
-
 // ===== DOM =====
 const npcBtn        = document.getElementById('npcAnalyzeBtn');
 const npcBtnText    = document.getElementById('npcBtnText');
