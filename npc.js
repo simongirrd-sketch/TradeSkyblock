@@ -124,7 +124,7 @@ async function lancerNPC() {
 
   const budget    = parseFloat(document.getElementById('npcBudget').value) || Infinity;
   const minProfit = 0;
-  const maxQty    = parseInt(document.getElementById('maxQtyNPC').value) || 0;
+  const maxQty    = document.getElementById('enableMaxQtyNPC').checked ? (parseInt(document.getElementById('maxQtyNPC').value) || 0) : 0;
 
   npcBtn.disabled = true;
   npcBtnText.textContent = 'Analyse en cours...';
