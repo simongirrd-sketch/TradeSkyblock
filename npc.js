@@ -161,7 +161,7 @@ async function lancerNPC() {
     npcBtnText.textContent = 'Analyser les flips PNJ';
     npcBtnIcon.textContent = '🏪';
   }
-});
+}
 
 // Persist
 window.addEventListener('load', () => {
