@@ -165,6 +165,25 @@ td { padding: 0.65rem 1rem; white-space: nowrap; }
 /* ===== FOOTER ===== */
 footer { position: relative; z-index: 1; text-align: center; padding: 1.5rem; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
 
+/* ===== CHECKBOX FIELDS ===== */
+.field-checkbox { justify-content: center; }
+.checkbox-label { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.88rem; color: var(--text); }
+.checkbox-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+
+/* ===== NPC BADGE ===== */
+.npc-badge { display: inline-block; background: rgba(124,58,237,0.2); color: #a78bfa; border: 1px solid rgba(124,58,237,0.4); border-radius: 4px; font-size: 0.68rem; font-weight: 700; padding: 0.1rem 0.35rem; vertical-align: middle; margin-left: 0.3rem; }
+
+/* ===== EXCLUDED ITEMS ===== */
+.excluded-group { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.5rem; overflow: hidden; }
+.excluded-summary { padding: 0.6rem 1rem; cursor: pointer; font-size: 0.88rem; font-weight: 600; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; user-select: none; list-style: none; }
+.excluded-summary::-webkit-details-marker { display: none; }
+.excluded-summary::before { content: '▶'; font-size: 0.65rem; transition: transform 0.2s; }
+details[open] .excluded-summary::before { transform: rotate(90deg); }
+.excluded-summary:hover { color: var(--text); }
+.excluded-count { background: var(--card2); border-radius: 999px; padding: 0.1rem 0.5rem; font-size: 0.75rem; margin-left: auto; }
+.excluded-list { list-style: none; padding: 0.5rem 1rem 0.75rem 1.75rem; display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.82rem; color: var(--muted); }
+.excluded-list .muted { color: var(--muted); }
+
 /* ===== INLINE BUDGET + OPTIONS ===== */
 .inline-budget {
   display: flex; align-items: center; justify-content: center; gap: 0.6rem;

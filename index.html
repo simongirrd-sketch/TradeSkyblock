@@ -36,33 +36,55 @@
         <button class="btn-options" onclick="toggleOptions('bazaar-options')">Options ▼</button>
         <div id="bazaar-options" class="options-grid hidden">
           <div class="field">
-            <label for="strategy">Stratégie</label>
-            <select id="strategy">
-              <option value="flip">Flip rapide (achat/revente)</option>
-              <option value="longterm">Investissement long terme</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="riskLevel">Niveau de risque</label>
-            <select id="riskLevel">
-              <option value="low">Faible (items stables)</option>
-              <option value="medium" selected>Moyen (bon équilibre)</option>
-              <option value="high">Élevé (profits max)</option>
-            </select>
-          </div>
-          <div class="field">
             <label for="maxItems">Nombre d'items max</label>
             <select id="maxItems">
-              <option value="3">3 items</option>
-              <option value="5" selected>5 items</option>
-              <option value="8">8 items</option>
-              <option value="10">10 items</option>
+              <option value="5">5 items</option>
+              <option value="10" selected>10 items</option>
+              <option value="20">20 items</option>
+              <option value="50">Tous</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="maxBacklog">Backlog maximum</label>
+            <select id="maxBacklog">
+              <option value="1">1 jour</option>
+              <option value="3">3 jours</option>
+              <option value="7" selected>7 jours</option>
+              <option value="14">14 jours</option>
+              <option value="999">Illimité</option>
             </select>
           </div>
           <div class="field">
             <label for="maxQtyBazaar">Qté max par item</label>
             <input type="number" id="maxQtyBazaar" placeholder="Illimitée" min="1" step="100" />
             <small>Laisse vide pour aucune limite</small>
+          </div>
+          <div class="field">
+            <label for="sortBy">Trier par</label>
+            <select id="sortBy">
+              <option value="totalProfit" selected>Profit total ↓</option>
+              <option value="profitPerItem">Profit/item ↓</option>
+              <option value="backlog">Backlog ↑ (plus rapide)</option>
+              <option value="name">Nom A→Z</option>
+            </select>
+          </div>
+          <div class="field field-checkbox">
+            <label class="checkbox-label">
+              <input type="checkbox" id="includeEnchantments" />
+              Inclure les enchantements
+            </label>
+          </div>
+          <div class="field field-checkbox">
+            <label class="checkbox-label">
+              <input type="checkbox" id="removeManipulated" checked />
+              Exclure les items manipulés
+            </label>
+          </div>
+          <div class="field field-checkbox">
+            <label class="checkbox-label">
+              <input type="checkbox" id="npcOnly" />
+              Seulement les flips PNJ
+            </label>
           </div>
         </div>
         <button id="analyzeBtn" class="btn-primary">
@@ -77,29 +99,33 @@
       </div>
       <div id="errorBox" class="error-box hidden"></div>
 
-      <section id="marketOverview" class="hidden">
-        <h2 class="section-title">Vue d'ensemble du marché</h2>
-        <div class="stats-grid" id="statsGrid"></div>
-      </section>
-
       <section id="planSection" class="hidden">
-        <h2 class="section-title">Plan d'investissement</h2>
         <div class="plan-summary card" id="planSummary"></div>
-        <div class="plan-items" id="planItems"></div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Item</th>
+                <th>Backlog</th>
+                <th>Buy Order</th>
+                <th>Sell Offer</th>
+                <th>Profit/item</th>
+                <th>Quantité</th>
+                <th>Offres</th>
+                <th>Profit total</th>
+              </tr>
+            </thead>
+            <tbody id="planItems"></tbody>
+          </table>
+        </div>
+        <p class="ah-disclaimer">* Buy Order : place ton ordre d'achat à ce prix. Sell Offer : revends à ce prix (ou au PNJ). Limite par ordre Hypixel : 71 680 items (256 pour certains items spéciaux). Backlog = jours estimés avant que ta position soit remplie.</p>
       </section>
 
-      <section id="rawSection" class="hidden">
-        <h2 class="section-title">
-          Top items par volume
-          <button class="btn-toggle" id="toggleRaw">Afficher</button>
-        </h2>
-        <div id="rawData" class="hidden">
-          <div class="table-wrapper">
-            <table>
-              <thead><tr><th>Item</th><th>Buy Order</th><th>Sell Order</th><th>Volume Achat/sem</th><th>Volume Vente/sem</th><th>Spread</th></tr></thead>
-              <tbody id="rawBody"></tbody>
-            </table>
-          </div>
+      <section id="excludedSection" class="hidden">
+        <div class="card">
+          <h2 class="section-title">Items exclus des résultats</h2>
+          <div id="excludedContent"></div>
         </div>
       </section>
     </div>
