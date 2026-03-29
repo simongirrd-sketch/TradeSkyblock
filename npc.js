@@ -42,8 +42,11 @@ function processNPC(npcMap, products, budget, minProfit, maxQty) {
     if (!npcItem) continue;
 
     // Price you pay with a buy order (highest bid + 0.1 = top of buy order book)
-    const highestBid = product.sell_summary?.[0]?.pricePerUnit;
+    const highestBid  = product.sell_summary?.[0]?.pricePerUnit;
+    const lowestAsk   = product.buy_summary?.[0]?.pricePerUnit;
     if (!highestBid || highestBid <= 0) continue;
+    // Skip manipulated items (buy order abnormally low vs sell offer)
+    if (lowestAsk && isManipulated(highestBid, lowestAsk)) continue;
     const bazaarBuyPrice = Math.round((highestBid + 0.1) * 10) / 10;
 
     const npcPrice   = npcItem.npcPrice;
