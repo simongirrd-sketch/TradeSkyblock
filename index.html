@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TradeSkyblock - Bazaar & AH Flip</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <header>
+    <div class="logo">
+      <span class="logo-icon">&#127758;</span>
+      <span>TradeSkyblock</span>
+    </div>
+    <p class="tagline">Analyse Bazaar &amp; Auction House — Hypixel Skyblock</p>
+  </header>
+
+  <main>
+    <!-- Tab Navigation -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="bazaar">&#128200; Bazaar Flip</button>
+      <button class="tab" data-tab="ah">&#127970; AH Flip</button>
+      <button class="tab" data-tab="npc">&#128722; NPC Flip</button>
+    </nav>
+
+    <!-- ===== BAZAAR TAB ===== -->
+    <div id="tab-bazaar">
+      <section class="config-panel card">
+        <h2>Configuration</h2>
+        <div class="config-grid">
+          <div class="field">
+            <label for="budget">Mon budget (coins)</label>
+            <input type="number" id="budget" placeholder="ex: 5000000" min="1000" step="100000" />
+          </div>
+          <div class="field">
+            <label for="strategy">Stratégie</label>
+            <select id="strategy">
+              <option value="flip">Flip rapide (achat/revente)</option>
+              <option value="longterm">Investissement long terme</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="riskLevel">Niveau de risque</label>
+            <select id="riskLevel">
+              <option value="low">Faible (items stables)</option>
+              <option value="medium" selected>Moyen (bon équilibre)</option>
+              <option value="high">Élevé (profits max)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="maxItems">Nombre d'items max</label>
+            <select id="maxItems">
+              <option value="3">3 items</option>
+              <option value="5" selected>5 items</option>
+              <option value="8">8 items</option>
+              <option value="10">10 items</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="maxQtyBazaar">Qté max par item</label>
+            <input type="number" id="maxQtyBazaar" placeholder="Illimitée" min="1" step="100" />
+            <small>Laisse vide pour aucune limite</small>
+          </div>
+        </div>
+        <button id="analyzeBtn" class="btn-primary">
+          <span id="btnIcon">&#9889;</span>
+          <span id="btnText">Analyser le Bazaar</span>
+        </button>
+      </section>
+
+      <div id="statusBar" class="status-bar hidden">
+        <div class="status-spinner"></div>
+        <span id="statusText">Chargement...</span>
+      </div>
+      <div id="errorBox" class="error-box hidden"></div>
+
+      <section id="marketOverview" class="hidden">
+        <h2 class="section-title">Vue d'ensemble du marché</h2>
+        <div class="stats-grid" id="statsGrid"></div>
+      </section>
+
+      <section id="planSection" class="hidden">
+        <h2 class="section-title">Plan d'investissement</h2>
+        <div class="plan-summary card" id="planSummary"></div>
+        <div class="plan-items" id="planItems"></div>
+      </section>
+
+      <section id="rawSection" class="hidden">
+        <h2 class="section-title">
+          Top items par volume
+          <button class="btn-toggle" id="toggleRaw">Afficher</button>
+        </h2>
+        <div id="rawData" class="hidden">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Item</th><th>Buy Order</th><th>Sell Order</th><th>Volume Achat/sem</th><th>Volume Vente/sem</th><th>Spread</th></tr></thead>
+              <tbody id="rawBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== AH FLIP TAB ===== -->
+    <div id="tab-ah" class="hidden">
+      <section class="config-panel card">
+        <h2>Configuration AH</h2>
+        <div class="config-grid">
+          <div class="field">
+            <label for="ahBudget">Mon budget (coins)</label>
+            <input type="number" id="ahBudget" placeholder="ex: 10000000" min="1000" step="500000" />
+          </div>
+          <div class="field">
+            <label for="ahPages">Pages à scanner</label>
+            <select id="ahPages">
+              <option value="3">3 pages (~3 000 BIN)</option>
+              <option value="5" selected>5 pages (~5 000 BIN)</option>
+              <option value="10">10 pages (~10 000 BIN)</option>
+              <option value="20">20 pages (~20 000 BIN)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ahMinProfit">Profit minimum</label>
+            <select id="ahMinProfit">
+              <option value="50000">50k coins</option>
+              <option value="100000" selected>100k coins</option>
+              <option value="500000">500k coins</option>
+              <option value="1000000">1M coins</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="maxQtyAH">Qté max par item</label>
+            <input type="number" id="maxQtyAH" placeholder="Illimitée" min="1" step="100" />
+            <small>Laisse vide pour aucune limite</small>
+          </div>
+          <div class="field">
+            <label for="ahTier">Rareté minimum</label>
+            <select id="ahTier">
+              <option value="COMMON">Toutes raretés</option>
+              <option value="UNCOMMON">Uncommon+</option>
+              <option value="RARE" selected>Rare+</option>
+              <option value="EPIC">Epic+</option>
+              <option value="LEGENDARY">Legendary+</option>
+            </select>
+          </div>
+        </div>
+        <button id="ahAnalyzeBtn" class="btn-primary">
+          <span id="ahBtnIcon">&#128269;</span>
+          <span id="ahBtnText">Scanner l'Auction House</span>
+        </button>
+      </section>
+
+      <div id="ahStatusBar" class="status-bar hidden">
+        <div class="status-spinner"></div>
+        <span id="ahStatusText">Chargement...</span>
+      </div>
+      <div id="ahErrorBox" class="error-box hidden"></div>
+
+      <section id="ahStatsSection" class="hidden">
+        <h2 class="section-title">Vue d'ensemble</h2>
+        <div class="stats-grid" id="ahStatsGrid"></div>
+      </section>
+
+      <section id="ahResultsSection" class="hidden">
+        <h2 class="section-title">BIN sous-cotés — opportunités de flip</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Item</th>
+                <th>Rareté</th>
+                <th>Prix BIN</th>
+                <th>Prix médian</th>
+                <th>Remise</th>
+                <th>Profit net</th>
+                <th>Listings</th>
+                <th>Vendeur</th>
+              </tr>
+            </thead>
+            <tbody id="ahResultsBody"></tbody>
+          </table>
+        </div>
+        <p class="ah-disclaimer">* Prix médian calculé sur les BIN actifs scannés. Profit après taxe AH de 1%. Vérifie toujours le prix dans le jeu avant d'acheter.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>TradeSkyblock n'est pas affilié à Hypixel. Données via l'API publique Hypixel.</p>
+  </footer>
+
+    <!-- ===== NPC FLIP TAB ===== -->
+    <div id="tab-npc" class="hidden">
+      <section class="config-panel card">
+        <h2>Configuration NPC</h2>
+        <div class="config-grid">
+          <div class="field">
+            <label for="npcBudget">Mon budget (coins)</label>
+            <input type="number" id="npcBudget" placeholder="ex: 1000000" min="1000" step="100000" />
+          </div>
+          <div class="field">
+            <label for="maxQtyNPC">Qté max par item</label>
+            <input type="number" id="maxQtyNPC" placeholder="Illimitée" min="1" step="100" />
+            <small>Laisse vide pour aucune limite</small>
+          </div>
+          <div class="field">
+            <label for="npcMinProfit">Profit minimum</label>
+            <select id="npcMinProfit">
+              <option value="1000">1k coins</option>
+              <option value="10000" selected>10k coins</option>
+              <option value="50000">50k coins</option>
+              <option value="100000">100k coins</option>
+            </select>
+          </div>
+        </div>
+        <button id="npcAnalyzeBtn" class="btn-primary">
+          <span id="npcBtnIcon">&#127978;</span>
+          <span id="npcBtnText">Analyser les flips PNJ</span>
+        </button>
+      </section>
+
+      <div id="npcStatusBar" class="status-bar hidden">
+        <div class="status-spinner"></div>
+        <span id="npcStatusText">Chargement...</span>
+      </div>
+      <div id="npcErrorBox" class="error-box hidden"></div>
+
+      <section id="npcStatsSection" class="hidden">
+        <h2 class="section-title">Vue d'ensemble</h2>
+        <div class="stats-grid" id="npcStatsGrid"></div>
+      </section>
+
+      <section id="npcResultsSection" class="hidden">
+        <h2 class="section-title">Items à acheter au Bazaar → vendre au PNJ</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Item</th>
+                <th>Prix Bazaar</th>
+                <th>Prix PNJ</th>
+                <th>Profit/u</th>
+                <th>Marge</th>
+                <th>Qté conseillée</th>
+                <th>Invest. total</th>
+                <th>Profit total</th>
+                <th>Volume/sem</th>
+              </tr>
+            </thead>
+            <tbody id="npcResultsBody"></tbody>
+          </table>
+        </div>
+        <p class="ah-disclaimer">* Prix Bazaar en temps réel. Prix PNJ fixes depuis l'API Hypixel. Profit garanti sans attente d'acheteur.</p>
+      </section>
+    </div>
+
+  <script src="app.js"></script>
+  <script src="ah.js"></script>
+  <script src="npc.js"></script>
+</body>
+</html>
