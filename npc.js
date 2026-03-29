@@ -123,7 +123,7 @@ async function lancerNPC() {
   document.getElementById('npcResultsSection').classList.add('hidden');
 
   const budget    = parseFloat(document.getElementById('npcBudget').value) || Infinity;
-  const minProfit = parseInt(document.getElementById('npcMinProfit').value);
+  const minProfit = 0;
   const maxQty    = parseInt(document.getElementById('maxQtyNPC').value) || 0;
 
   npcBtn.disabled = true;
