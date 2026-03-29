@@ -28,12 +28,13 @@
     <!-- ===== BAZAAR TAB ===== -->
     <div id="tab-bazaar">
       <section class="config-panel card">
-        <h2>Configuration</h2>
-        <div class="config-grid">
-          <div class="field">
-            <label for="budget">Mon budget (coins)</label>
-            <input type="number" id="budget" placeholder="ex: 5000000" min="1000" step="100000" />
-          </div>
+        <div class="inline-budget">
+          <span>J'ai</span>
+          <input type="number" id="budget" placeholder="5000000" min="1000" step="100000" />
+          <span>coins à investir</span>
+        </div>
+        <button class="btn-options" onclick="toggleOptions('bazaar-options')">Options ▼</button>
+        <div id="bazaar-options" class="options-grid hidden">
           <div class="field">
             <label for="strategy">Stratégie</label>
             <select id="strategy">
@@ -106,12 +107,13 @@
     <!-- ===== AH FLIP TAB ===== -->
     <div id="tab-ah" class="hidden">
       <section class="config-panel card">
-        <h2>Configuration AH</h2>
-        <div class="config-grid">
-          <div class="field">
-            <label for="ahBudget">Mon budget (coins)</label>
-            <input type="number" id="ahBudget" placeholder="ex: 10000000" min="1000" step="500000" />
-          </div>
+        <div class="inline-budget">
+          <span>J'ai</span>
+          <input type="number" id="ahBudget" placeholder="10000000" min="1000" step="500000" />
+          <span>coins à investir</span>
+        </div>
+        <button class="btn-options" onclick="toggleOptions('ah-options')">Options ▼</button>
+        <div id="ah-options" class="options-grid hidden">
           <div class="field">
             <label for="ahPages">Pages à scanner</label>
             <select id="ahPages">
@@ -190,12 +192,13 @@
     <!-- ===== NPC FLIP TAB ===== -->
     <div id="tab-npc" class="hidden">
       <section class="config-panel card">
-        <h2>Affiche uniquement les objets vendus aux PNJ.</h2>
-        <div class="config-grid">
-          <div class="field">
-            <label for="npcBudget">Mon budget (coins)</label>
-            <input type="number" id="npcBudget" placeholder="ex: 1000000" min="1000" step="100000" />
-          </div>
+        <div class="inline-budget">
+          <span>J'ai</span>
+          <input type="number" id="npcBudget" placeholder="1000000" min="1000" step="100000" />
+          <span>coins à investir</span>
+        </div>
+        <button class="btn-options" onclick="toggleOptions('npc-options')">Options ▼</button>
+        <div id="npc-options" class="options-grid hidden">
           <div class="field">
             <label for="maxQtyNPC">Qté max par item</label>
             <input type="number" id="maxQtyNPC" placeholder="Illimitée" min="1" step="100" />

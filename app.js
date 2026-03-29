@@ -322,6 +322,15 @@ analyzeBtn.addEventListener('click', async () => {
   }
 });
 
+// ===== OPTIONS TOGGLE =====
+function toggleOptions(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('hidden');
+  // Update button text
+  const btn = el.previousElementSibling;
+  btn.textContent = el.classList.contains('hidden') ? 'Options ▼' : 'Options ▲';
+}
+
 // ===== TAB SWITCHING =====
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
