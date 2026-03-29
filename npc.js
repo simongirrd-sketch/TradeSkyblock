@@ -77,7 +77,6 @@ function processNPC(npcMap, products, budget, minProfit, maxQty) {
       qty,
       totalInvest,
       totalProfit,
-      weeklyVol,
     });
   }
 
