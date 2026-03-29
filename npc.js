@@ -53,15 +53,14 @@ function processNPC(npcMap, products, budget, minProfit, maxQty) {
     const profit     = npcPrice - bazaarBuyPrice;
     const margin     = (profit / npcPrice) * 100;
 
-    if (profit <= 0 || margin < 1) continue; // Bazaar price already above NPC
+    if (profit <= 0) continue;
 
-    // Max qty: don't spend more than 30% budget per item, don't exceed volume
-    const qs        = product.quick_status;
-    const weeklyVol = qs?.buyMovingWeek || 0;
-    const marketCap = Math.max(1, Math.floor(weeklyVol * 0.02));
-    const canAfford = Math.max(1, Math.floor((budget * 0.3) / bazaarBuyPrice));
-    const rawQty    = Math.min(marketCap, canAfford);
-    const qty       = maxQty ? Math.min(rawQty, maxQty) : rawQty;
+    // Qty: how much can we afford, capped by Hypixel per-order limit
+    const orderCap  = getOrderCap(id);
+    const canAfford = Math.floor(budget / bazaarBuyPrice);
+    if (canAfford < 1) continue;
+    const rawQty = Math.min(canAfford, orderCap);
+    const qty    = maxQty ? Math.min(rawQty, maxQty) : rawQty;
 
     const totalInvest = qty * bazaarBuyPrice;
     const totalProfit = qty * profit;
