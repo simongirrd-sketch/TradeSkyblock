@@ -101,17 +101,14 @@ function renderNPCResults(flips) {
   npcShow('npcResultsSection');
 
   document.getElementById('npcResultsBody').innerHTML = flips.slice(0, 30).map((f, i) => `
-    <tr class="${i < 3 ? 'rank-' + (i+1) : ''}">
+    <tr>
       <td style="font-weight:700;color:var(--muted)">${i + 1}</td>
       <td style="font-weight:600">${f.name}</td>
-      <td class="price red">${fmt(f.bazaarPrice)}</td>
-      <td class="price green">${fmt(f.npcPrice)}</td>
+      <td class="price">${fmt(f.bazaarPrice)}</td>
+      <td class="price">${fmt(f.npcPrice)}</td>
       <td class="price green">+${fmt(f.profit)}</td>
-      <td class="price yellow">${pct(f.margin)}</td>
       <td class="price blue">${f.qty.toLocaleString('fr-FR')}</td>
-      <td class="price">${fmt(f.totalInvest)}</td>
-      <td class="price green">+${fmt(f.totalProfit)}</td>
-      <td style="color:var(--muted);font-size:0.8rem">${fmt(f.weeklyVol)}/sem</td>
+      <td class="price green" style="font-weight:700">+${fmt(f.totalProfit)}</td>
     </tr>
   `).join('');
 }
