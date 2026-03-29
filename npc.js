@@ -158,8 +158,8 @@ async function lancerNPC() {
     npcShowError('Erreur : ' + err.message);
   } finally {
     npcBtn.disabled = false;
-    npcBtnText.textContent = 'Analyser les flips PNJ';
-    npcBtnIcon.textContent = '🏪';
+    npcBtnText.textContent = 'Rafraichir';
+    npcBtnIcon.textContent = '↻';
   }
 }
 
