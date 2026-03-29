@@ -117,7 +117,7 @@ function renderNPCResults(flips) {
 }
 
 // ===== MAIN =====
-window.addEventListener('load', async () => {
+async function lancerNPC() {
   npcClearError();
   document.getElementById('npcStatsSection').classList.add('hidden');
   document.getElementById('npcResultsSection').classList.add('hidden');
@@ -172,3 +172,5 @@ document.getElementById('npcBudget').addEventListener('change', e => localStorag
 
 // Helper shared from app.js
 function pct(n) { return n.toFixed(1) + '%'; }
+window.addEventListener('load', lancerNPC);
+npcBtn.addEventListener('click', lancerNPC);
