@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/analyze.js": {
-      "runtime": "@vercel/node@3"
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
