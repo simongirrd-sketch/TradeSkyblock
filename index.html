@@ -227,9 +227,9 @@
         <div id="npc-options" class="options-grid hidden">
           <div class="field field-checkbox">
             <label class="checkbox-label">
-              <input type="checkbox" id="enableMaxQtyNPC" onchange="document.getElementById('maxQtyNPC').classList.toggle('hidden', !this.checked)" />
+              <input type="checkbox" id="enableMaxQtyNPC" onchange="document.getElementById('maxQtyNPC').disabled=!this.checked" />
               Limiter à
-              <input type="number" id="maxQtyNPC" class="hidden qty-inline" placeholder="500" min="1" step="100" />
+              <input type="number" id="maxQtyNPC" class="qty-inline" placeholder="500" min="1" step="100" disabled />
               items par item
             </label>
           </div>
