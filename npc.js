@@ -117,7 +117,7 @@ function renderNPCResults(flips) {
 }
 
 // ===== MAIN =====
-npcBtn.addEventListener('click', async () => {
+window.addEventListener('load', async () => {
   npcClearError();
   document.getElementById('npcStatsSection').classList.add('hidden');
   document.getElementById('npcResultsSection').classList.add('hidden');
